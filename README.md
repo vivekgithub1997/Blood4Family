@@ -17,7 +17,7 @@
 # Setting Up Your Local Machine (Backend)
   # Clone the Backend Repository:
 
-(i) Clone the blood4family-backend repository to your local machine.
+(i) Clone the [blood4family-backend](https://github.com/vivekgithub1997/blood4family-backend) repository to your local machine.
      Extract and Open in an IDE
      Extract the contents of the repository (if necessary).
      Open the folder in an IDE like Eclipse or Spring Tool Suite (STS).
