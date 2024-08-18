@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Toast  -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+
+        }
+
+
+
+        /* about profile description */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 290px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 110%;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent black transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+
+            /* donar form css */
+            .form-inline {
+                display: flex;
+                flex-flow: row wrap;
+                align-items: center;
+            }
+
+            /* Add some margins for each label */
+            .form-inline label {
+                margin: 5px 10px 5px 0;
+            }
+
+
+
+            /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
+            @media (max-width: 800px) {
+                .form-inline input {
+                    margin: 10px 0;
+                }
+
+                .form-inline {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+            }
+
+        }
+
+
+        /* slider  */
+
+        .slideshow-container {
+            position: relative;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .mySlides {
+            display: none;
+        }
+
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* find donor modal */
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Loader styling */
+        /* HTML: <div class="loader"></div> */
+        .loader {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            --c: no-repeat linear-gradient(#25b09b 0 0);
+            background:
+                var(--c) center/100% 10px,
+                var(--c) center/10px 100%;
+        }
+
+        .loader:before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                var(--c) 0 0,
+                var(--c) 100% 0,
+                var(--c) 0 100%,
+                var(--c) 100% 100%;
+            background-size: 15.5px 15.5px;
+            animation: l16 1.5s infinite cubic-bezier(0.3, 1, 0, 1);
+        }
+
+        @keyframes l16 {
+            33% {
+                inset: -10px;
+                transform: rotate(0deg)
+            }
+
+            66% {
+                inset: -10px;
+                transform: rotate(90deg)
+            }
+
+            100% {
+                inset: 0;
+                transform: rotate(90deg)
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-[#40534C] h-screen px-10 py-10 min-h-screen">
+
+    <div class="link-header">
+        <marquee class="hover:text-[#7BD3EA] font-bold text-yellow-500" behavior="alternate" direction="left"
+            scrollamount="5">Our mission is to fulfill every blood request in the country with a promising web portal
+            and motivated individuals who are willing to donate blood.
+        </marquee>
+    </div>
+
+    <!-- Nav bar -->
+    <nav class="border-1 border-red-500 px py-4 text-[#FAF0E6] flex justify-center items-center">
+        <img class="h-20"
+            src="https://png.pngtree.com/png-vector/20221019/ourmid/pngtree-blood-drop-cartoon-icon-png-image_6355973.png" /><span
+            class="font-bold text-md"> BLOOD4FAMILY</span>
+        <ul class="flex flex-row justify-center items-center gap-12">
+
+            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase "><a href="index.html"><i
+                        class="fa-solid fa-house" style="margin-right: 10px;"></i>Home</a>
+            </li>
+            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase" id="about-link"><a href="#about"><i
+                        class="fa-solid fa-address-card" style="margin-right: 10px; "></i>About</a>
+            </li>
+            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase "><a href="#donor"><i
+                        class="fa-solid fa-droplet" style="margin-right: 10px; "></i>Find Blood Donor</a>
+            </li>
+            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase "><a href="#register"><i
+                        class="fa-solid fa-users" style="margin-right: 10px; "></i>Register As Donor</a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <!-- main-section -->
+
+    <section id="home" class="grid grid-cols-3 divide-x">
+        <div class="h-[31rem] w-[91rem] rounded-md bg-[#1A3636] flex-row justify-between items-center py-5">
+            <!-- main grid-->
+            <div class="grid grid-cols-4 gap-4 ml-4 mr-4">
+                <!-- left -->
+                <div>
+                    <h3
+                        class="rounded-md bg-zinc-500 flex justify-center items-center text-[#FAF0E6] font-bold text-md ml-4 p-2 uppercase   ">
+                        Latest Update
+                    </h3>
+
+                </div>
+                <!-- middle -->
+                <div
+                    class="rounded-md col-span-2  bg-zinc-500 flex justify-center items-center text-[#FAF0E6] font-bold text-md ml-4 uppercase ">
+                    Services</div>
+                <!-- right -->
+                <div
+                    class="rounded-md bg-zinc-500 flex justify-center items-center text-[#FAF0E6] font-bold text-md ml-4 uppercase  ">
+                    Current
+                    Blood Requests</div>
+
+            </div>
+            <hr class="ml-8 mr-4 mt-4">
+
+            <!-- setting data each col -->
+            <div class="grid grid-cols-4 gap-4 ml-4 mr-4 flex flex-row justify-evenly">
+                <div>
+                    <h3
+                        class="rounded-md w-full h-full aspect-square p-5 text-[#FAF0E6] font-bold text-md ml-4 p-2 mt-4 border-dotted border-2 border-green-600">
+
+                        <span class="flex justify-center mt-4"> UPDATES</span>
+                        <hr class="ml-8 mr-4 mt-5"><br>
+                        <a class="flex justify-start hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6]"
+                            href="#" h><i class="fa-brands fa-app-store mt-1 ml-4">&nbsp &nbsp </i>APP STORE COMING
+                            SOON...</a>
+                        <a class="flex justify-start hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6] mt-4"
+                            href="#" h><i class="fa-brands fa-android mt-1 ml-4">&nbsp &nbsp</i> ANDROID DOWNLOAD
+                            NOW</a>
+                        <a class="flex justify-start hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6] mt-4"
+                            href="#" h><i class="fa-brands fa-whatsapp mt-1 ml-4">&nbsp &nbsp</i>SHARE FOR FRIENDS</a>
+
+
+
+                    </h3>
+                </div>
+
+                <div
+                    class="rounded-md col-span-2 border-dotted border-2 border-green-600 text-[#FAF0E6]  ml-4 p-2 mt-5">
+                    <h3>
+
+                        <ul class="flex flex-row justify-center items-center gap-12">
+
+                            <li class="hover:text-yellow-500  font-bold text-md m-4 uppercase "><a href="#">Projects</a>
+                            </li>
+                            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase "><a
+                                    href="#">Achievements</a>
+                            </li>
+                            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase "><a href="#">Technical</a>
+                            </li>
+                            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase "><a
+                                    href="#">Testimonals</a>
+                            </li>
+                        </ul>
+
+
+
+                    </h3>
+
+
+
+                    <div class="slideshow-container ">
+
+                        <div class="mySlides fade">
+                            <div class="numbertext">1 / 3</div>
+                            <img src="https://www.w3schools.com/howto/img_nature_wide.jpg" style="width:100%">
+
+                        </div>
+
+                        <div class="mySlides fade">
+                            <div class="numbertext">2 / 3</div>
+                            <img src="https://www.w3schools.com/howto/img_snow_wide.jpg" style="width:100%">
+
+                        </div>
+
+                        <div class="mySlides fade">
+                            <div class="numbertext">3 / 3</div>
+                            <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg" style="width:100%">
+
+                        </div>
+
+                        <a class="prev" onclick="plusSlides(-1)">❮</a>
+                        <a class="next" onclick="plusSlides(1)">❯</a>
+
+                    </div>
+                    <br>
+
+                    <div style="text-align:center">
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                    </div>
+
+
+
+
+                </div>
+
+
+                <div
+                    class="rounded-md w-full h-full aspect-square  border-dotted border-2 border-green-600 text-[#FAF0E6] font-bold text-md  p-2 mt-4 flex flex-row justify-center">
+                    <h3>
+                        <span class="flex justify-center mt-4"> BLOOD LOCATION</span>
+                        <hr class="ml-8 mr-4 mt-9"> <br>
+                        <a class="flex justify-center hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6]"
+                            href="#" h> B+ | CHITRAKOOT</a>
+                        <a class="flex justify-center hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6] mt-4"
+                            href="#" h> AB+ | SITAPUR</a>
+                        <a class="flex justify-center hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6] mt-4"
+                            href="#" h> B- | MUMBAI</a>
+                        <a class="flex justify-center hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6] mt-4"
+                            href="#" h> O+ | CHITRAKOOT</a>
+                        <a class="flex justify-center hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6] mt-4"
+                            href="#" h> O- | SITAPUR</a>
+
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- about section -->
+
+    <section id="about">
+        <div class="h-[43rem] w-[91rem] rounded-md bg-[#35374B] flex-row justify-between items-center mt-9 ">
+            <div class="grid grid-cols-2 gap-4 ml-4 mr-4">
+                <!-- left -->
+                <div>
+                    <h3 class="flex justify-center items-center text-[#FAF0E6] font-bold text-md ml-4 p-2">
+                        <h2
+                            class="flex justify-start items-center text-yellow-500 font-bold text-md flex justify-center">
+                            About Website
+                        </h2>
+                        <p class="flex justify-start items-center text-[#FAF0E6] font-bold text-md mt-2 p-2">
+                            "Blood4Family"
+                            is an
+                            organization that brings voluntary blood donors and those in need of blood on to a common
+                            platform. Through this website, we seek donors who are willing to donate blood, as well as
+                            provide the timeliest support to those in frantic need of it.</p>
+
+                        <p class="text-[#FAF0E6] font-bold text-md mt-2 p-2">Started in the year 2024, on 15th AUG, in a
+                            small
+                            room with just 5 voluntary donors but with
+                            the zeal to serve our society, to inspire and spread the word, we dream to fulfill 100%
+                            blood need in India.</p>
+
+                        <p class="text-[#FAF0E6] font-bold text-md mt-2 p-2">Our mission is to fulfill every blood
+                            request in the country with a promising web portal and
+                            motivated individuals who are willing to donate blood.</p>
+
+                        <p class="text-[#FAF0E6] font-bold text-md mt-2 p-2">Our vision is to be “The hope of every
+                            Indian in search of a voluntary blood donor”</p>
+                        <br>
+
+                        <p class=" text-[#FAF0E6] font-bold text-md mt-2 p-2"> Our motto - “Donate blood to save the
+                            most
+                            precious
+                            human life”.</p>
+
+                    </h3>
+
+                </div>
+
+                <!-- right -->
+                <div class="flex flex-col justify-center items-center mt-5">
+                    <div class="tooltip text-yellow-500">About Developer
+                        <span class="tooltiptext">I am Vivek Raikawar from Chitrakoot, Uttar Pradesh, working as a
+                            Backend Developer at a product-based company.
+                    </div>
+
+                    <div class="h-[24rem] w-[24rem] rounded-full border-2 border-yellow-500 mt-4  overflow-hidden">
+
+                        <img src="assert/profile.png" height="500" width="500" class="object-contain ml-5" />
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Search for donor section -->
+
+    <section id="donor">
+        <div class="h-[43rem] w-[91rem] rounded-md bg-[#35374B] flex-row justify-between items-center mt-3">
+
+            <div class="rounded-md  shadow-lg shadow-cyan-500/50  flex justify-center items-center ">
+                <div class="form-container bg-zinc-500  p-8 rounded-lg shadow-lg w-full max-w-4xl mt-1">
+                    <h1 class="font-bold text-md  flex justify-center text-yellow-500 ">FIND BLOOD DONOR </h1>
+
+                    <hr class="ml-8 mr-4 mt-4">
+                    <form id="donorForm" action="#" method="post" class="flex flex-wrap gap-6 mt-2">
+
+
+                        <!-- Blood Group Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="blood" class="block text-[#7BD3EA] font-medium mb-2">Blood Group</label>
+                            <select id="blood" name="blood" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+
+                        </div>
+                        <!-- Country Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="countrydetails" class="block text-[#7BD3EA] font-medium mb-2">Country</label>
+                            <select id="countrydetails" name="country" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select</option>
+                                <option value="INDIA">India</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="CANADA">Canada</option>
+                                <option value="AUSTRALIA">Australia</option>
+                            </select>
+
+                        </div>
+                        <!-- State Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="statedetails" class="block text-[#7BD3EA] font-medium mb-2">State</label>
+                            <select id="statedetails" name="state" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select</option>
+                                <option value="UTTAR PRADESH">Uttar Pradesh</option>
+                                <option value="CALIFORNIA">California</option>
+                                <option value="NEW SOUTH WALES">New South Wales</option>
+                            </select>
+
+                        </div>
+                        <!-- District Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="districtdetails" class="block text-[#7BD3EA] font-medium mb-2">District</label>
+                            <select id="districtdetails" name="district" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select</option>
+                                <option value="CHITRAKOOT">Chitrakoot</option>
+                                <option value="LOS ANGELES">Los Angeles</option>
+                            </select>
+
+                        </div>
+                        <!-- City Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="citydetails" class="block text-[#7BD3EA] font-medium mb-2">City</label>
+                            <select id="citydetails" name="city" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select</option>
+                                <option value="CHITRAKOOT">Chitrakoot</option>
+
+                            </select>
+
+                        </div>
+
+                        <button type="submit"
+                            class="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">Submit</button>
+                    </form>
+
+                    <hr class="ml-8 mr-4 mt-4">
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Register as Donor -->
+
+    <section id="register">
+        <div class="h-[38rem] w-[91rem] rounded-md bg-[#35374B] flex-row justify-between items-center mt-3">
+
+            <div class="rounded-md  shadow-lg shadow-cyan-500/50  flex justify-center items-center ">
+                <div class="form-container bg-zinc-500  p-8 rounded-lg shadow-lg w-full max-w-4xl mt-1">
+                    <h1 class="font-bold text-md  flex justify-center text-yellow-500 ">REGISTER AS DONOR </h1>
+                    <span class=" flex justify-end text-yellow-500">Already have an account? <a
+                            class="text-white hover:text-[#7BD3EA]" href="#">SignIn</a></span>
+                    <hr class="ml-8 mr-4 mt-4">
+                    <form id="registrationForm" action="#" method="post" class="flex flex-wrap gap-6 mt-2">
+                        <!-- Email Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="email" class="block text-[#7BD3EA] font-medium mb-2 ">Email</label>
+                            <input type="email" id="email" name="userEmail" placeholder="Enter your email"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required>
+                        </div>
+                        <!-- Full Name Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="fullname" class="block text-[#7BD3EA] font-medium mb-2">Full Name</label>
+                            <input type="text" id="fullname" name="userName" placeholder="Enter your full name"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required>
+                        </div>
+                        <!-- Password Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="psw" class="block text-[#7BD3EA] font-medium mb-2">Password</label>
+                            <input type="password" id="psw" name="userPassword" placeholder="Enter your password"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required>
+                        </div>
+                        <!-- Confirm Password Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="psw-repeat" class="block text-[#7BD3EA] font-medium mb-2">Confirm
+                                Password</label>
+                            <input type="password" id="psw-repeat" name="confirmPassword"
+                                placeholder="Confirm your password"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required>
+                        </div>
+                        <!-- Mobile Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="mobile" class="block text-[#7BD3EA] font-medium mb-2">Mobile Number</label>
+                            <input type="tel" id="mobile" name="userMobile" placeholder="Enter your mobile number"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                         <!-- Blood Group Field -->
+                         <div class="flex-1 min-w-[200px]">
+                            <label for="blood" class="block text-[#7BD3EA] font-medium mb-2">Blood Group</label>
+                            <select id="bloodGroup" name="blood" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+
+                        </div>
+                        <!-- Country Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="countrydetails" class="block text-[#7BD3EA] font-medium mb-2">Country</label>
+                            <select id="country" name="country" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select</option>
+                                <option value="INDIA">India</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="CANADA">Canada</option>
+                                <option value="AUSTRALIA">Australia</option>
+                            </select>
+
+                        </div>
+                        <!-- State Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="statedetails" class="block text-[#7BD3EA] font-medium mb-2">State</label>
+                            <select id="state" name="state" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select</option>
+                                <option value="UTTAR PRADESH">Uttar Pradesh</option>
+                                <option value="CALIFORNIA">California</option>
+                                <option value="NEW SOUTH WALES">New South Wales</option>
+                            </select>
+
+                        </div>
+                        <!-- District Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="districtdetails" class="block text-[#7BD3EA] font-medium mb-2">District</label>
+                            <select id="district" name="district" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select</option>
+                                <option value="CHITRAKOOT">Chitrakoot</option>
+                                <option value="LOS ANGELES">Los Angeles</option>
+                            </select>
+
+                        </div>
+                        <!-- City Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="citydetails" class="block text-[#7BD3EA] font-medium mb-2">City</label>
+                            <select id="city" name="city" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select</option>
+                                <option value="CHITRAKOOT">Chitrakoot</option>
+                                <option value="LA">Los Angeles</option>
+                            </select>
+
+                        </div>
+                        <!-- Availability Field -->
+                        <div class="flex-1 min-w-[200px]">
+                            <label for="available" class="block text-[#7BD3EA] font-medium mb-2">Availability</label>
+                            <select id="available" name="available" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select</option>
+                                <option value="Available">Available</option>
+                                <option value="Unavailable">Unavailable</option>
+                            </select>
+
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">Submit</button>
+                    </form>
+                </div>
+            </div>
+    </section>
+
+
+    Loader
+    <div id="loader" class="hidden fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-75">
+        <div class="loader"></div>
+    </div>
+
+    <!-- find donor modal -->
+
+    <div id="dataModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times</span>
+            <div id="modalBody">
+                <!-- The data from Axios will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="finddonor.js"></script>
+    <script src="register.js"></script>
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("mySlides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 3000); // Change slide every 3 seconds
+        }
+
+        function plusSlides(n) {
+            slideIndex += n - 1;
+            showSlides();
+        }
+    </script>
+
+
+</body>
+
+</html>
