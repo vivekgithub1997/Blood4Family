@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                       Toastify({
                           text: "No donor available in this location. Showing default record.",
-                          duration: 3000,
+                          duration: 1000, // Duration in milliseconds
                           gravity: "top",
                           position: "right",
                           backgroundColor: "#FF5733", // Error color (red/orange)
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   } else {
                       Toastify({
                           text: "Donor Found!",
-                          duration: 3000, // Duration in milliseconds
+                          duration: 1000, // Duration in milliseconds
                           gravity: "top", // Position: top or bottom
                           position: "right", // Position: left, right, or center
                           backgroundColor: "#4CAF50", // Success color (green)
@@ -113,12 +113,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                   // Show default record if server is down
                   let donors = [
-                      { userName: 'Default Donor', bloodGroup: 'O+', userMobile: '0000000000', userAvailbility: 'No' }
+                      { userName: 'Default Donor', bloodGroup: 'A+', userMobile: '0000000000', userAvailbility: 'No' }
                   ];
 
                   Toastify({
                       text: "Server error. Showing default record.",
-                      duration: 3000,
+                      duration: 1000, // Duration in milliseconds
                       gravity: "top",
                       position: "right",
                       backgroundColor: "#FF5733", // Error color (red/orange)
@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   });
               });
 
-      }, 1000);
+      }, 1000); // Loader hides after 1 second
 
   });
 });

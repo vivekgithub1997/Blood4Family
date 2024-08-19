@@ -31,69 +31,63 @@
         }
 
 
-
         /* about profile description */
+        /* Tooltip styling */
         .tooltip {
             position: relative;
             display: inline-block;
-            border-bottom: 1px dotted black;
         }
 
-        .tooltip .tooltiptext {
+        .tooltiptext {
             visibility: hidden;
-            width: 290px;
-            background-color: black;
+            width: 220px;
+            background-color: #333;
             color: #fff;
             text-align: center;
-            border-radius: 6px;
-            padding: 5px 0;
+            border-radius: 5px;
+            padding: 5px;
             position: absolute;
             z-index: 1;
-            top: -5px;
-            left: 110%;
-        }
-
-        .tooltip .tooltiptext::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            right: 100%;
-            margin-top: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent black transparent transparent;
+            bottom: 125%;
+            /* Adjust as necessary */
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .tooltip:hover .tooltiptext {
             visibility: visible;
-
-            /* donar form css */
-            .form-inline {
-                display: flex;
-                flex-flow: row wrap;
-                align-items: center;
-            }
-
-            /* Add some margins for each label */
-            .form-inline label {
-                margin: 5px 10px 5px 0;
-            }
-
-
-
-            /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
-            @media (max-width: 800px) {
-                .form-inline input {
-                    margin: 10px 0;
-                }
-
-                .form-inline {
-                    flex-direction: column;
-                    align-items: stretch;
-                }
-            }
-
+            opacity: 1;
         }
+
+        /* donar form css */
+        .form-inline {
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
+        }
+
+        /* Add some margins for each label */
+        .form-inline label {
+            margin: 5px 10px 5px 0;
+        }
+
+
+
+        /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
+        @media (max-width: 800px) {
+            .form-inline input {
+                margin: 10px 0;
+            }
+
+            .form-inline {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+
 
 
         /* slider  */
@@ -231,463 +225,470 @@
     </style>
 </head>
 
-<body class="bg-[#40534C] h-screen px-10 py-10 min-h-screen">
-
-    <div class="link-header">
-        <marquee class="hover:text-[#7BD3EA] font-bold text-yellow-500" behavior="alternate" direction="left"
-            scrollamount="5">Our mission is to fulfill every blood request in the country with a promising web portal
-            and motivated individuals who are willing to donate blood.
-        </marquee>
-    </div>
+<body class="bg-[#40534C] min-h-screen px-4 md:px-10 py-10">
 
     <!-- Nav bar -->
-    <nav class="border-1 border-red-500 px py-4 text-[#FAF0E6] flex justify-center items-center">
-        <img class="h-20"
-            src="https://png.pngtree.com/png-vector/20221019/ourmid/pngtree-blood-drop-cartoon-icon-png-image_6355973.png" /><span
-            class="font-bold text-md"> BLOOD4FAMILY</span>
-        <ul class="flex flex-row justify-center items-center gap-12">
+    <nav
+        class="border-1 border-red-500 py-4 text-[#FAF0E6] flex flex-col md:flex-row justify-center items-center px-4 md:px-8">
+        <!-- Logo and Title -->
+        <div class="flex justify-center items-center mb-4 md:mb-0">
+            <img class="h-16 md:h-20"
+                src="https://png.pngtree.com/png-vector/20221019/ourmid/pngtree-blood-drop-cartoon-icon-png-image_6355973.png"
+                alt="Blood Drop Icon" />
+            <span class="font-bold text-lg md:text-xl ml-2">BLOOD4FAMILY</span>
+        </div>
 
-            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase "><a href="index.html"><i
-                        class="fa-solid fa-house" style="margin-right: 10px;"></i>Home</a>
+        <!-- Navigation Links -->
+        <ul class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8">
+            <li class="hover:text-yellow-500 font-bold text-sm md:text-md uppercase">
+                <a href="index.html">
+                    <i class="fa-solid fa-house mr-2"></i>Home
+                </a>
             </li>
-            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase" id="about-link"><a href="#about"><i
-                        class="fa-solid fa-address-card" style="margin-right: 10px; "></i>About</a>
+            <li class="hover:text-yellow-500 font-bold text-sm md:text-md uppercase" id="about-link">
+                <a href="#about">
+                    <i class="fa-solid fa-address-card mr-2"></i>About
+                </a>
             </li>
-            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase "><a href="#donor"><i
-                        class="fa-solid fa-droplet" style="margin-right: 10px; "></i>Find Blood Donor</a>
+            <li class="hover:text-yellow-500 font-bold text-sm md:text-md uppercase">
+                <a href="#donor">
+                    <i class="fa-solid fa-droplet mr-2"></i>Find Blood Donor
+                </a>
             </li>
-            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase "><a href="#register"><i
-                        class="fa-solid fa-users" style="margin-right: 10px; "></i>Register As Donor</a>
+            <li class="hover:text-yellow-500 font-bold text-sm md:text-md uppercase">
+                <a href="#register">
+                    <i class="fa-solid fa-users mr-2"></i>Register As Donor
+                </a>
             </li>
         </ul>
     </nav>
 
 
+
+
     <!-- main-section -->
 
-    <section id="home" class="grid grid-cols-3 divide-x">
-        <div class="h-[31rem] w-[91rem] rounded-md bg-[#1A3636] flex-row justify-between items-center py-5">
-            <!-- main grid-->
-            <div class="grid grid-cols-4 gap-4 ml-4 mr-4">
+    <section id="home" class="grid grid-cols-1 md:grid-cols-3 divide-x">
+        <div
+            class="h-auto md:h-[31rem] w-full md:w-[91rem] rounded-md bg-[#1A3636] flex flex-col justify-between items-center py-5">
+            <!-- main grid -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 w-full">
                 <!-- left -->
                 <div>
                     <h3
-                        class="rounded-md bg-zinc-500 flex justify-center items-center text-[#FAF0E6] font-bold text-md ml-4 p-2 uppercase   ">
+                        class="rounded-md bg-zinc-500 flex justify-center items-center text-[#FAF0E6] font-bold text-md p-2 uppercase">
                         Latest Update
                     </h3>
-
                 </div>
                 <!-- middle -->
                 <div
-                    class="rounded-md col-span-2  bg-zinc-500 flex justify-center items-center text-[#FAF0E6] font-bold text-md ml-4 uppercase ">
-                    Services</div>
+                    class="rounded-md col-span-1 md:col-span-2 bg-zinc-500 flex justify-center items-center text-[#FAF0E6] font-bold text-md uppercase">
+                    Services
+                </div>
                 <!-- right -->
                 <div
-                    class="rounded-md bg-zinc-500 flex justify-center items-center text-[#FAF0E6] font-bold text-md ml-4 uppercase  ">
-                    Current
-                    Blood Requests</div>
-
+                    class="rounded-md bg-zinc-500 flex justify-center items-center text-[#FAF0E6] font-bold text-md uppercase">
+                    Current Blood Requests
+                </div>
             </div>
-            <hr class="ml-8 mr-4 mt-4">
+            <hr class="w-full mt-4">
 
             <!-- setting data each col -->
-            <div class="grid grid-cols-4 gap-4 ml-4 mr-4 flex flex-row justify-evenly">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 w-full">
+                <!-- UPDATES -->
                 <div>
                     <h3
-                        class="rounded-md w-full h-full aspect-square p-5 text-[#FAF0E6] font-bold text-md ml-4 p-2 mt-4 border-dotted border-2 border-green-600">
-
-                        <span class="flex justify-center mt-4"> UPDATES</span>
-                        <hr class="ml-8 mr-4 mt-5"><br>
+                        class="rounded-md w-full h-auto md:aspect-square p-5 text-[#FAF0E6] font-bold text-md mt-4 border-dotted border-2 border-green-600">
+                        <span class="flex justify-center mt-4">UPDATES</span>
+                        <hr class="mt-5">
+                        <br>
                         <a class="flex justify-start hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6]"
-                            href="#" h><i class="fa-brands fa-app-store mt-1 ml-4">&nbsp &nbsp </i>APP STORE COMING
-                            SOON...</a>
+                            href="#">
+                            <i class="fa-brands fa-app-store mt-1 ml-4"></i> &nbsp APP STORE COMING SOON...
+                        </a>
                         <a class="flex justify-start hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6] mt-4"
-                            href="#" h><i class="fa-brands fa-android mt-1 ml-4">&nbsp &nbsp</i> ANDROID DOWNLOAD
-                            NOW</a>
+                            href="#">
+                            <i class="fa-brands fa-android mt-1 ml-4"></i> &nbsp ANDROID DOWNLOAD NOW
+                        </a>
                         <a class="flex justify-start hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6] mt-4"
-                            href="#" h><i class="fa-brands fa-whatsapp mt-1 ml-4">&nbsp &nbsp</i>SHARE FOR FRIENDS</a>
-
-
-
+                            href="#">
+                            <i class="fa-brands fa-whatsapp mt-1 ml-4"></i> &nbsp SHARE FOR FRIENDS
+                        </a>
                     </h3>
                 </div>
 
+                <!-- SERVICES & SLIDESHOW -->
                 <div
-                    class="rounded-md col-span-2 border-dotted border-2 border-green-600 text-[#FAF0E6]  ml-4 p-2 mt-5">
+                    class="rounded-md col-span-1 md:col-span-2 border-dotted border-2 border-green-600 text-[#FAF0E6] mt-5">
                     <h3>
-
-                        <ul class="flex flex-row justify-center items-center gap-12">
-
-                            <li class="hover:text-yellow-500  font-bold text-md m-4 uppercase "><a href="#">Projects</a>
+                        <ul class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-12">
+                            <li class="hover:text-yellow-500 font-bold text-md uppercase"><a href="#">Projects</a></li>
+                            <li class="hover:text-yellow-500 font-bold text-md uppercase"><a href="#">Achievements</a>
                             </li>
-                            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase "><a
-                                    href="#">Achievements</a>
-                            </li>
-                            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase "><a href="#">Technical</a>
-                            </li>
-                            <li class="hover:text-yellow-500 font-bold text-md m-4 uppercase "><a
-                                    href="#">Testimonals</a>
+                            <li class="hover:text-yellow-500 font-bold text-md uppercase"><a href="#">Technical</a></li>
+                            <li class="hover:text-yellow-500 font-bold text-md uppercase"><a href="#">Testimonials</a>
                             </li>
                         </ul>
-
-
-
                     </h3>
 
-
-
-                    <div class="slideshow-container ">
-
+                    <div class="slideshow-container mt-4">
+                        <!-- Slideshow -->
                         <div class="mySlides fade">
                             <div class="numbertext">1 / 3</div>
-                            <img src="https://www.w3schools.com/howto/img_nature_wide.jpg" style="width:100%">
-
+                            <img src="https://www.w3schools.com/howto/img_nature_wide.jpg" class="w-full" alt="Nature">
                         </div>
-
                         <div class="mySlides fade">
                             <div class="numbertext">2 / 3</div>
-                            <img src="https://www.w3schools.com/howto/img_snow_wide.jpg" style="width:100%">
-
+                            <img src="https://www.w3schools.com/howto/img_snow_wide.jpg" class="w-full" alt="Snow">
                         </div>
-
                         <div class="mySlides fade">
                             <div class="numbertext">3 / 3</div>
-                            <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg" style="width:100%">
-
+                            <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg" class="w-full"
+                                alt="Mountains">
                         </div>
 
+                        <!-- Navigation buttons -->
                         <a class="prev" onclick="plusSlides(-1)">❮</a>
                         <a class="next" onclick="plusSlides(1)">❯</a>
-
                     </div>
                     <br>
 
-                    <div style="text-align:center">
+                    <!-- Dots -->
+                    <div class="flex justify-center">
                         <span class="dot" onclick="currentSlide(1)"></span>
                         <span class="dot" onclick="currentSlide(2)"></span>
                         <span class="dot" onclick="currentSlide(3)"></span>
                     </div>
-
-
-
-
                 </div>
 
-
+                <!-- BLOOD LOCATION -->
                 <div
-                    class="rounded-md w-full h-full aspect-square  border-dotted border-2 border-green-600 text-[#FAF0E6] font-bold text-md  p-2 mt-4 flex flex-row justify-center">
+                    class="rounded-md w-full h-auto md:aspect-square border-dotted border-2 border-green-600 text-[#FAF0E6] font-bold text-md p-2 mt-4 flex flex-col justify-center">
                     <h3>
-                        <span class="flex justify-center mt-4"> BLOOD LOCATION</span>
-                        <hr class="ml-8 mr-4 mt-9"> <br>
+                        <span class="flex justify-center mt-4">BLOOD LOCATION</span>
+                        <hr class="mt-9">
+                        <br>
                         <a class="flex justify-center hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6]"
-                            href="#" h> B+ | CHITRAKOOT</a>
+                            href="#">
+                            B+ | CHITRAKOOT
+                        </a>
                         <a class="flex justify-center hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6] mt-4"
-                            href="#" h> AB+ | SITAPUR</a>
+                            href="#">
+                            AB+ | SITAPUR
+                        </a>
                         <a class="flex justify-center hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6] mt-4"
-                            href="#" h> B- | MUMBAI</a>
+                            href="#">
+                            B- | MUMBAI
+                        </a>
                         <a class="flex justify-center hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6] mt-4"
-                            href="#" h> O+ | CHITRAKOOT</a>
+                            href="#">
+                            O+ | CHITRAKOOT
+                        </a>
                         <a class="flex justify-center hover:text-yellow-500 font-bold text-md border-dotted border-2 border-green-600 text-[#FAF0E6] mt-4"
-                            href="#" h> O- | SITAPUR</a>
-
-
+                            href="#">
+                            O- | SITAPUR
+                        </a>
                     </h3>
-
                 </div>
-
             </div>
-
         </div>
-
     </section>
+
 
     <!-- about section -->
 
     <section id="about">
-        <div class="h-[43rem] w-[91rem] rounded-md bg-[#35374B] flex-row justify-between items-center mt-9 ">
-            <div class="grid grid-cols-2 gap-4 ml-4 mr-4">
+        <div
+            class="h-auto w-full md:w-[91rem] rounded-md bg-[#35374B] flex flex-col md:flex-row justify-between items-center mt-9 px-4 md:px-8 py-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- left -->
                 <div>
-                    <h3 class="flex justify-center items-center text-[#FAF0E6] font-bold text-md ml-4 p-2">
-                        <h2
-                            class="flex justify-start items-center text-yellow-500 font-bold text-md flex justify-center">
+                    <h3 class="text-[#FAF0E6] font-bold text-lg md:text-xl px-2">
+                        <h2 class="text-yellow-500 font-bold text-lg md:text-xl mb-2">
                             About Website
                         </h2>
-                        <p class="flex justify-start items-center text-[#FAF0E6] font-bold text-md mt-2 p-2">
-                            "Blood4Family"
-                            is an
-                            organization that brings voluntary blood donors and those in need of blood on to a common
-                            platform. Through this website, we seek donors who are willing to donate blood, as well as
-                            provide the timeliest support to those in frantic need of it.</p>
+                        <p class="text-[#FAF0E6] font-bold text-sm md:text-md mt-2">
+                            "Blood4Family" is an organization that brings voluntary blood donors and those in need of
+                            blood onto a common platform. Through this website, we seek donors who are willing to donate
+                            blood, as well as provide the timeliest support to those in frantic need of it.
+                        </p>
 
-                        <p class="text-[#FAF0E6] font-bold text-md mt-2 p-2">Started in the year 2024, on 15th AUG, in a
-                            small
-                            room with just 5 voluntary donors but with
+                        <p class="text-[#FAF0E6] font-bold text-sm md:text-md mt-2">
+                            Started in the year 2024, on 15th AUG, in a small room with just 5 voluntary donors but with
                             the zeal to serve our society, to inspire and spread the word, we dream to fulfill 100%
-                            blood need in India.</p>
+                            blood need in India.
+                        </p>
 
-                        <p class="text-[#FAF0E6] font-bold text-md mt-2 p-2">Our mission is to fulfill every blood
-                            request in the country with a promising web portal and
-                            motivated individuals who are willing to donate blood.</p>
+                        <p class="text-[#FAF0E6] font-bold text-sm md:text-md mt-2">
+                            Our mission is to fulfill every blood request in the country with a promising web portal and
+                            motivated individuals who are willing to donate blood.
+                        </p>
 
-                        <p class="text-[#FAF0E6] font-bold text-md mt-2 p-2">Our vision is to be “The hope of every
-                            Indian in search of a voluntary blood donor”</p>
-                        <br>
+                        <p class="text-[#FAF0E6] font-bold text-sm md:text-md mt-2">
+                            Our vision is to be “The hope of every Indian in search of a voluntary blood donor”.
+                        </p>
 
-                        <p class=" text-[#FAF0E6] font-bold text-md mt-2 p-2"> Our motto - “Donate blood to save the
-                            most
-                            precious
-                            human life”.</p>
-
+                        <p class="text-[#FAF0E6] font-bold text-sm md:text-md mt-2">
+                            Our motto - “Donate blood to save the most precious human life”.
+                        </p>
                     </h3>
-
                 </div>
 
                 <!-- right -->
                 <div class="flex flex-col justify-center items-center mt-5">
-                    <div class="tooltip text-yellow-500">About Developer
-                        <span class="tooltiptext">I am Vivek Raikawar from Chitrakoot, Uttar Pradesh, working as a
-                            Backend Developer at a product-based company.
+                    <div class="relative mb-4">
+                        <div class="tooltip text-yellow-500">About Developer
+                            <span class="tooltiptext">I am Vivek Raikawar from Chitrakoot, Uttar Pradesh, working as a
+                                Backend Developer at a product-based company.</span>
+                        </div>
                     </div>
 
-                    <div class="h-[24rem] w-[24rem] rounded-full border-2 border-yellow-500 mt-4  overflow-hidden">
-
-                        <img src="assert/profile.png" height="500" width="500" class="object-contain ml-5" />
-
-
+                    <div
+                        class="h-[24rem] w-[24rem] rounded-full border-2 border-yellow-500 mt-4 overflow-hidden">
+                        <img src="assert/profile.png" alt="Profile Picture" class="object-cover w-full h-full" />
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </section>
 
     <!-- Search for donor section -->
 
     <section id="donor">
-        <div class="h-[43rem] w-[91rem] rounded-md bg-[#35374B] flex-row justify-between items-center mt-3">
-
-            <div class="rounded-md  shadow-lg shadow-cyan-500/50  flex justify-center items-center ">
-                <div class="form-container bg-zinc-500  p-8 rounded-lg shadow-lg w-full max-w-4xl mt-1">
-                    <h1 class="font-bold text-md  flex justify-center text-yellow-500 ">FIND BLOOD DONOR </h1>
-
-                    <hr class="ml-8 mr-4 mt-4">
-                    <form id="donorForm" action="#" method="post" class="flex flex-wrap gap-6 mt-2">
-
-
+        <div class="h-auto w-full md:w-[91rem] rounded-md bg-[#35374B] flex flex-col items-center mt-3 px-4 md:px-8 py-4">
+            <div class="rounded-md shadow-lg shadow-cyan-500/50 flex justify-center items-center w-full">
+                <div class="form-container bg-zinc-500 p-8 rounded-lg shadow-lg w-full max-w-4xl mt-1">
+                    <h1 class="font-bold text-lg md:text-xl text-center text-yellow-500 mb-4">FIND BLOOD DONOR</h1>
+                    <hr class="mb-4">
+    
+                    <form id="donorForm" action="#" method="post" class="flex flex-col gap-6">
+    
                         <!-- Blood Group Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="blood" class="block text-[#7BD3EA] font-medium mb-2">Blood Group</label>
-                            <select id="blood" name="blood" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select</option>
-                                <option value="A+">A+</option>
-                                <option value="A-">A-</option>
-                                <option value="B+">B+</option>
-                                <option value="B-">B-</option>
-                                <option value="AB+">AB+</option>
-                                <option value="AB-">AB-</option>
-                                <option value="O+">O+</option>
-                                <option value="O-">O-</option>
-                            </select>
-
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <div class="flex-1">
+                                <label for="blood" class="block text-[#7BD3EA] font-medium mb-2">Blood Group</label>
+                                <select id="blood" name="blood" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+    
+                            <!-- Country Field -->
+                            <div class="flex-1">
+                                <label for="countrydetails" class="block text-[#7BD3EA] font-medium mb-2">Country</label>
+                                <select id="countrydetails" name="country" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select</option>
+                                    <option value="INDIA">India</option>
+                                    <option value="US">United States</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="CANADA">Canada</option>
+                                    <option value="AUSTRALIA">Australia</option>
+                                </select>
+                            </div>
                         </div>
-                        <!-- Country Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="countrydetails" class="block text-[#7BD3EA] font-medium mb-2">Country</label>
-                            <select id="countrydetails" name="country" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select</option>
-                                <option value="INDIA">India</option>
-                                <option value="US">United States</option>
-                                <option value="UK">United Kingdom</option>
-                                <option value="CANADA">Canada</option>
-                                <option value="AUSTRALIA">Australia</option>
-                            </select>
-
+    
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <!-- State Field -->
+                            <div class="flex-1">
+                                <label for="statedetails" class="block text-[#7BD3EA] font-medium mb-2">State</label>
+                                <select id="statedetails" name="state" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select</option>
+                                    <option value="UTTAR PRADESH">Uttar Pradesh</option>
+                                    <option value="CALIFORNIA">California</option>
+                                    <option value="NEW SOUTH WALES">New South Wales</option>
+                                </select>
+                            </div>
+    
+                            <!-- District Field -->
+                            <div class="flex-1">
+                                <label for="districtdetails" class="block text-[#7BD3EA] font-medium mb-2">District</label>
+                                <select id="districtdetails" name="district" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select</option>
+                                    <option value="CHITRAKOOT">Chitrakoot</option>
+                                    <option value="LOS ANGELES">Los Angeles</option>
+                                </select>
+                            </div>
                         </div>
-                        <!-- State Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="statedetails" class="block text-[#7BD3EA] font-medium mb-2">State</label>
-                            <select id="statedetails" name="state" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select</option>
-                                <option value="UTTAR PRADESH">Uttar Pradesh</option>
-                                <option value="CALIFORNIA">California</option>
-                                <option value="NEW SOUTH WALES">New South Wales</option>
-                            </select>
-
+    
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <!-- City Field -->
+                            <div class="flex-1">
+                                <label for="citydetails" class="block text-[#7BD3EA] font-medium mb-2">City</label>
+                                <select id="citydetails" name="city" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select</option>
+                                    <option value="CHITRAKOOT">Chitrakoot</option>
+                                </select>
+                            </div>
                         </div>
-                        <!-- District Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="districtdetails" class="block text-[#7BD3EA] font-medium mb-2">District</label>
-                            <select id="districtdetails" name="district" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select</option>
-                                <option value="CHITRAKOOT">Chitrakoot</option>
-                                <option value="LOS ANGELES">Los Angeles</option>
-                            </select>
-
-                        </div>
-                        <!-- City Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="citydetails" class="block text-[#7BD3EA] font-medium mb-2">City</label>
-                            <select id="citydetails" name="city" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select</option>
-                                <option value="CHITRAKOOT">Chitrakoot</option>
-
-                            </select>
-
-                        </div>
-
+    
                         <button type="submit"
                             class="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">Submit</button>
                     </form>
-
-                    <hr class="ml-8 mr-4 mt-4">
-
-
+    
+                    <hr class="mt-4">
                 </div>
-
             </div>
-
-
         </div>
     </section>
+    
 
     <!-- Register as Donor -->
 
     <section id="register">
-        <div class="h-[38rem] w-[91rem] rounded-md bg-[#35374B] flex-row justify-between items-center mt-3">
-
-            <div class="rounded-md  shadow-lg shadow-cyan-500/50  flex justify-center items-center ">
-                <div class="form-container bg-zinc-500  p-8 rounded-lg shadow-lg w-full max-w-4xl mt-1">
-                    <h1 class="font-bold text-md  flex justify-center text-yellow-500 ">REGISTER AS DONOR </h1>
-                    <span class=" flex justify-end text-yellow-500">Already have an account? <a
-                            class="text-white hover:text-[#7BD3EA]" href="#">SignIn</a></span>
-                    <hr class="ml-8 mr-4 mt-4">
-                    <form id="registrationForm" action="#" method="post" class="flex flex-wrap gap-6 mt-2">
-                        <!-- Email Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="email" class="block text-[#7BD3EA] font-medium mb-2 ">Email</label>
-                            <input type="email" id="email" name="userEmail" placeholder="Enter your email"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                required>
+        <div class="h-auto w-full md:w-[91rem] rounded-md bg-[#35374B] flex flex-col items-center mt-3 px-4 md:px-8 py-4">
+            <div class="rounded-md shadow-lg shadow-cyan-500/50 flex justify-center items-center w-full">
+                <div class="form-container bg-zinc-500 p-8 rounded-lg shadow-lg w-full max-w-4xl mt-1">
+                    <h1 class="font-bold text-lg md:text-xl text-center text-yellow-500 mb-4">REGISTER AS DONOR</h1>
+                    <span class="flex justify-center md:justify-end text-yellow-500 mb-4">
+                        Already have an account? <a class="text-white hover:text-[#7BD3EA]" href="#">Sign In</a>
+                    </span>
+                    <hr class="mb-4">
+    
+                    <form id="registrationForm" action="#" method="post" class="flex flex-col gap-6">
+    
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <!-- Email Field -->
+                            <div class="flex-1">
+                                <label for="email" class="block text-[#7BD3EA] font-medium mb-2">Email</label>
+                                <input type="email" id="email" name="userEmail" placeholder="Enter your email"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    required>
+                            </div>
+                            <!-- Full Name Field -->
+                            <div class="flex-1">
+                                <label for="fullname" class="block text-[#7BD3EA] font-medium mb-2">Full Name</label>
+                                <input type="text" id="fullname" name="userName" placeholder="Enter your full name"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    required>
+                            </div>
                         </div>
-                        <!-- Full Name Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="fullname" class="block text-[#7BD3EA] font-medium mb-2">Full Name</label>
-                            <input type="text" id="fullname" name="userName" placeholder="Enter your full name"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                required>
+    
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <!-- Password Field -->
+                            <div class="flex-1">
+                                <label for="psw" class="block text-[#7BD3EA] font-medium mb-2">Password</label>
+                                <input type="password" id="psw" name="userPassword" placeholder="Enter your password"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    required>
+                            </div>
+                            <!-- Confirm Password Field -->
+                            <div class="flex-1">
+                                <label for="psw-repeat" class="block text-[#7BD3EA] font-medium mb-2">Confirm Password</label>
+                                <input type="password" id="psw-repeat" name="confirmPassword"
+                                    placeholder="Confirm your password"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    required>
+                            </div>
                         </div>
-                        <!-- Password Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="psw" class="block text-[#7BD3EA] font-medium mb-2">Password</label>
-                            <input type="password" id="psw" name="userPassword" placeholder="Enter your password"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                required>
+    
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <!-- Mobile Field -->
+                            <div class="flex-1">
+                                <label for="mobile" class="block text-[#7BD3EA] font-medium mb-2">Mobile Number</label>
+                                <input type="tel" id="mobile" name="userMobile" placeholder="Enter your mobile number"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <!-- Blood Group Field -->
+                            <div class="flex-1">
+                                <label for="bloodGroup" class="block text-[#7BD3EA] font-medium mb-2">Blood Group</label>
+                                <select id="bloodGroup" name="blood" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
                         </div>
-                        <!-- Confirm Password Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="psw-repeat" class="block text-[#7BD3EA] font-medium mb-2">Confirm
-                                Password</label>
-                            <input type="password" id="psw-repeat" name="confirmPassword"
-                                placeholder="Confirm your password"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                required>
+    
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <!-- Country Field -->
+                            <div class="flex-1">
+                                <label for="country" class="block text-[#7BD3EA] font-medium mb-2">Country</label>
+                                <select id="country" name="country" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select</option>
+                                    <option value="INDIA">India</option>
+                                    <option value="US">United States</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="CANADA">Canada</option>
+                                    <option value="AUSTRALIA">Australia</option>
+                                </select>
+                            </div>
+                            <!-- State Field -->
+                            <div class="flex-1">
+                                <label for="state" class="block text-[#7BD3EA] font-medium mb-2">State</label>
+                                <select id="state" name="state" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select</option>
+                                    <option value="UTTAR PRADESH">Uttar Pradesh</option>
+                                    <option value="CALIFORNIA">California</option>
+                                    <option value="NEW SOUTH WALES">New South Wales</option>
+                                </select>
+                            </div>
                         </div>
-                        <!-- Mobile Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="mobile" class="block text-[#7BD3EA] font-medium mb-2">Mobile Number</label>
-                            <input type="tel" id="mobile" name="userMobile" placeholder="Enter your mobile number"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+    
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <!-- District Field -->
+                            <div class="flex-1">
+                                <label for="district" class="block text-[#7BD3EA] font-medium mb-2">District</label>
+                                <select id="district" name="district" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select</option>
+                                    <option value="CHITRAKOOT">Chitrakoot</option>
+                                    <option value="LOS ANGELES">Los Angeles</option>
+                                </select>
+                            </div>
+                            <!-- City Field -->
+                            <div class="flex-1">
+                                <label for="city" class="block text-[#7BD3EA] font-medium mb-2">City</label>
+                                <select id="city" name="city" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select</option>
+                                    <option value="CHITRAKOOT">Chitrakoot</option>
+                                    <option value="LA">Los Angeles</option>
+                                </select>
+                            </div>
                         </div>
-                         <!-- Blood Group Field -->
-                         <div class="flex-1 min-w-[200px]">
-                            <label for="blood" class="block text-[#7BD3EA] font-medium mb-2">Blood Group</label>
-                            <select id="bloodGroup" name="blood" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select</option>
-                                <option value="A+">A+</option>
-                                <option value="A-">A-</option>
-                                <option value="B+">B+</option>
-                                <option value="B-">B-</option>
-                                <option value="AB+">AB+</option>
-                                <option value="AB-">AB-</option>
-                                <option value="O+">O+</option>
-                                <option value="O-">O-</option>
-                            </select>
-
+    
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <!-- Availability Field -->
+                            <div class="flex-1">
+                                <label for="available" class="block text-[#7BD3EA] font-medium mb-2">Availability</label>
+                                <select id="available" name="available" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select</option>
+                                    <option value="Available">Available</option>
+                                    <option value="Unavailable">Unavailable</option>
+                                </select>
+                            </div>
                         </div>
-                        <!-- Country Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="countrydetails" class="block text-[#7BD3EA] font-medium mb-2">Country</label>
-                            <select id="country" name="country" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select</option>
-                                <option value="INDIA">India</option>
-                                <option value="US">United States</option>
-                                <option value="UK">United Kingdom</option>
-                                <option value="CANADA">Canada</option>
-                                <option value="AUSTRALIA">Australia</option>
-                            </select>
-
-                        </div>
-                        <!-- State Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="statedetails" class="block text-[#7BD3EA] font-medium mb-2">State</label>
-                            <select id="state" name="state" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select</option>
-                                <option value="UTTAR PRADESH">Uttar Pradesh</option>
-                                <option value="CALIFORNIA">California</option>
-                                <option value="NEW SOUTH WALES">New South Wales</option>
-                            </select>
-
-                        </div>
-                        <!-- District Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="districtdetails" class="block text-[#7BD3EA] font-medium mb-2">District</label>
-                            <select id="district" name="district" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select</option>
-                                <option value="CHITRAKOOT">Chitrakoot</option>
-                                <option value="LOS ANGELES">Los Angeles</option>
-                            </select>
-
-                        </div>
-                        <!-- City Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="citydetails" class="block text-[#7BD3EA] font-medium mb-2">City</label>
-                            <select id="city" name="city" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select</option>
-                                <option value="CHITRAKOOT">Chitrakoot</option>
-                                <option value="LA">Los Angeles</option>
-                            </select>
-
-                        </div>
-                        <!-- Availability Field -->
-                        <div class="flex-1 min-w-[200px]">
-                            <label for="available" class="block text-[#7BD3EA] font-medium mb-2">Availability</label>
-                            <select id="available" name="available" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select</option>
-                                <option value="Available">Available</option>
-                                <option value="Unavailable">Unavailable</option>
-                            </select>
-
-                        </div>
+    
                         <button type="submit"
                             class="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">Submit</button>
                     </form>
                 </div>
             </div>
+        </div>
     </section>
+    
 
 
     <!-- Loader -->
