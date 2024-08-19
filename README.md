@@ -14,8 +14,9 @@
           Right-click on index.html and select "Open with 
           Live Server" to run the application in your browser.
 
-# Setting Up Your Local Machine (Backend)
+# Setting Up Your Local Machine (Backend)-[springboot]
   # Clone the Backend Repository:
+     * minimum java version 17, MySQL:8.x.x
 
 (i) Clone the [blood4family-backend](https://github.com/vivekgithub1997/blood4family-backend) repository to your local machine.
      Extract and Open in an IDE
